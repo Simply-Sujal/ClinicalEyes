@@ -14,8 +14,13 @@ DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://sujal:sujal12345@localhos
 if DATABASE_URL.startswith('postgresql+asyncpg:'):
     DATABASE_URL = re.sub(r'^postgresql\+asyncpg:', 'postgresql:', DATABASE_URL)
 
-# Create sync engine
-engine = create_engine(DATABASE_URL)
+# Create sync engine with connection pooling for serverless
+engine = create_engine(
+    DATABASE_URL,
+    pool_pre_ping=True,
+    pool_recycle=300,
+    connect_args={"sslmode": "require"} if "localhost" not in DATABASE_URL else {}
+)
 
 # Session maker
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
