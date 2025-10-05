@@ -1,6 +1,6 @@
-# Clinical Eyes
+# Clinical Eyes Backend 
 
-A comprehensive clinical research platform with a modern React frontend and FastAPI backend, deployed with NeonDB.
+Clinical Eyes is a service based startup based on UK providing services related to the field of Medical.
 
 ## 🏗️ Project Structure
 
