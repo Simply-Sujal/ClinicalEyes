@@ -8,8 +8,12 @@ app = FastAPI(title="Clinical Eyes", description="Clinical Eyes API", version="1
 # including routes
 app.include_router(v1_router)
 
-Base.metadata.create_all(bind=engine)
+# Create tables only if not in production or if explicitly needed
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print(f"Database connection issue: {e}")
 
 @app.get("/")
 def home():
-    return {"message": "The health check is successfull!"}
+    return {"message": "The health check is successful!"}
